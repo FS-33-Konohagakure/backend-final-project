@@ -11,9 +11,9 @@ route.get("/", (req, res) => {
     res.json("Selamat datang di aplikasi Konsultasi Dokter dan Informasi Kesehatan Bersama SEHATIN");
 });
   
-route.use("/users", userRoutes);
+route.use("/users", verifyToken, userRoutes);
 route.use("/auth", authRoutes);
-route.use("/dokter", verifyToken, dokterRoutes);
-route.use("/food", verifyToken, foodRoutes);
+route.use("/dokter", dokterRoutes);
+route.use("/food", foodRoutes);
 
 module.exports = route;

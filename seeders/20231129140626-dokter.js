@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.bulkInsert("Dokters", [
       {
         name: "Dr. I Made Kartika",
-        images: {
+        image: {
           normal: "https://i.ibb.co/mHdPt32/dokter-kandungan1.jpg",
           crop: "https://i.ibb.co/ZS56Myr/biaya-dokter-kandungan1.jpg",
         },
@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         name: "Dr. Putri Amelia",
-        images: {
+        image: {
           normal: "https://i.ibb.co/BLCDQQW/dokter-kandungan2.jpg",
           crop: "https://i.ibb.co/bPd0YhN/biaya-dokter-kandungan2.jpg",
         },
@@ -44,7 +44,7 @@ module.exports = {
       },
       {
         name: "Dr. Jessica Milea",
-        images: {
+        image: {
           normal: "https://i.ibb.co/RB22RNS/dokter-kandungan3.jpg",
           crop: "https://i.ibb.co/p3CnXZZ/biaya-dokter-kandungan3.jpg",
         },
@@ -63,7 +63,7 @@ module.exports = {
       },
       {
         name: "Dr.Dewi Ratnasari",
-        images: {
+        image: {
           normal: "https://i.ibb.co/rHKvVhS/dokter-anak1.jpg",
           crop: "https://i.ibb.co/d2qmqNh/biaya-dokter-anak1.jpg",
         },
@@ -82,7 +82,7 @@ module.exports = {
       },
       {
         name: "Dr.Rizki Pratama",
-        images: {
+        image: {
           normal: "https://i.ibb.co/Wg4shbg/dokter-anak2.jpg",
           crop: "https://i.ibb.co/g97ncfG/biaya-dokter-anak2.jpg",
         },
@@ -101,7 +101,7 @@ module.exports = {
       },
       {
         name: "Dr. Siti Nurhaliza",
-        images: {
+        image: {
           normal: "https://i.ibb.co/gZPVm8f/dokter-anak3.jpg",
           crop: "https://i.ibb.co/TkzrGFq/biaya-dokter-anak3.jpg",
         },
@@ -120,7 +120,7 @@ module.exports = {
       },
       {
         name: "Dr. Hendra Wijaya",
-        images: {
+        image: {
           normal: "https://i.ibb.co/48dd68R/dokter-gigi1.jpg",
           crop: "https://i.ibb.co/PcbBB2b/biaya-dokter-gigi1.jpg",
         },
@@ -139,7 +139,7 @@ module.exports = {
       },
       {
         name: "Dr. Dian Purnama",
-        images: {
+        image: {
           normal: "https://i.ibb.co/WtrFCD4/dokter-gigi2.jpg",
           crop: "https://i.ibb.co/QndYS6f/biaya-dokter-gigi2.jpg",
         },
@@ -158,7 +158,7 @@ module.exports = {
       },
       {
         name: "Dr. Tri Utami",
-        images: {
+        image: {
           normal: "https://i.ibb.co/DYZjQnQ/dokter-gigi3.jpg",
           crop: "https://i.ibb.co/6gJ6jm9/biaya-dokter-gigi3.jpg",
         },

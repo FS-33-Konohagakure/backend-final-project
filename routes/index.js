@@ -8,12 +8,12 @@ const authRoutes = require("./auth-route");
 const verifyToken = require("../middleware/auth");
 
 route.get("/", (req, res) => {
-    res.json("Selamat datang di aplikasi backend todo list");
+    res.json("Selamat datang di aplikasi Konsultasi Dokter dan Informasi Kesehatan Bersama SEHATIN");
 });
   
 route.use("/users", userRoutes);
 route.use("/auth", authRoutes);
-route.use("/dokter", dokterRoutes);
-route.use("/food", foodRoutes);
+route.use("/dokter", verifyToken, dokterRoutes);
+route.use("/food", verifyToken, foodRoutes);
 
 module.exports = route;

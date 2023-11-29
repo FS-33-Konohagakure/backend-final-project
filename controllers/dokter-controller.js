@@ -96,8 +96,8 @@ module.exports = {
   editDokterById: async (req, res) => {
     const { id } = req.params;
     const {
-      nama,
-      images,
+      name,
+      image,
       spesialisasi,
       pengalaman,
       str,
@@ -112,8 +112,8 @@ module.exports = {
     const index = await db.Dokter.findByPk(id);
     db.Dokter[index] = {
       id,
-      nama,
-      images,
+      name,
+      image,
       spesialisasi,
       pengalaman,
       str,
@@ -127,8 +127,8 @@ module.exports = {
     };
 
     index.id = id || index.id;
-    index.name = nama || index.nama;
-    index.images = images || index.images;
+    index.name = name || index.name;
+    index.image = image || index.image;
     index.spesialisasi = spesialisasi || index.spesialisasi;
     index.pengalaman = pengalaman || index.pengalaman;
     index.str = str || index.str;

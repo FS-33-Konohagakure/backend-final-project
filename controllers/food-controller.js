@@ -88,19 +88,19 @@ module.exports = {
   },
   editFoodById: async (req, res) => {
     const { id } = req.params;
-    const { nama, images, detail, kategoriId } = req.body;
+    const { name, image, detail, kategoriId } = req.body;
     const index = await db.Food.findByPk(id);
     db.Food[index] = {
       id,
       nama,
-      images,
+      image,
       detail,
       kategoriId,
     };
 
     index.id = id || index.id;
-    index.name = nama || index.nama;
-    index.images = images || index.images;
+    index.name = name || index.name;
+    index.image = image || index.image;
     index.detail = detail || index.detail;
     index.kategoriId = kategoriId || index.kategoriId;
 

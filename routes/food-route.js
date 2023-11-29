@@ -8,7 +8,7 @@ const {
   addFood,
   editFoodById,
   deleteFoodById,
-} = require("../controllers/user-controller");
+} = require("../controllers/food-controller");
 
 route.get("/", getAllFood);
 route.get("/:id", getFoodById);

@@ -36,10 +36,7 @@ module.exports = {
       info: {
         type: Sequelize.STRING
       },
-      hari: {
-        type: Sequelize.STRING
-      },
-      jam: {
+      jadwal: {
         type: Sequelize.STRING
       },
       kategoriId: {

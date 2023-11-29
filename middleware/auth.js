@@ -16,7 +16,7 @@ const verifyToken = (req, res, next) => {
 
   if (!token) {
     res.json({
-      message: "invaid token",
+      message: "invalid token",
     });
     return;
   }

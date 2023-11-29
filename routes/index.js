@@ -2,6 +2,7 @@ const express = require("express");
 const route = express.Router();
 
 const userRoutes = require("./user-route");
+const dokterRoutes = require("./dokter-route");
 const authRoutes = require("./auth-route");
 const verifyToken = require("../middleware/auth");
 
@@ -11,5 +12,6 @@ route.get("/", (req, res) => {
   
 route.use("/users", userRoutes);
 route.use("/auth", authRoutes);
+route.use("/dokter", dokterRoutes)
 
 module.exports = route;

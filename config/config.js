@@ -1,8 +1,8 @@
 module.exports = {
   development: {
-    username: "freedb_irvityara",
-    password: "&ZZJJQ5W78vu*!b",
-    database: "freedb_todolist_backend",
+    username: "freedb_virani",
+    password: "6u#U@BfDZy&6Az*",
+    database: "freedb_kesehatan",
     host: "sql.freedb.tech",
     dialect: "mysql",
   },

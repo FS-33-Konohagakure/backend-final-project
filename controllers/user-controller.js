@@ -4,21 +4,50 @@ const db = require("../models");
 
 module.exports = {
   getAllUser: async (req, res) => {
-    const users = await db.Users.findAll();
+    try {
+      const users = await db.Users.findAll();
 
-    res.json({
-      message: "berhasil mendapatkan data user",
-      data: users,
-    });
+      if (!users) {
+        res.json({
+          message: "User not found",
+        });
+      }
+
+      res.json({
+        message: "Berhasil mendapatkan data user",
+        data: users,
+      });
+
+    } catch {
+      res.json({
+        message: "Cannot find user",
+        error: error.message,
+      });
+    } 
   },
 
   getUserById: async (req, res) => {
     const { id } = req.params;
-    const user = await db.Users.findByPk(id);
 
-    res.json({
-      message: "berhasil mendapatkan user by id",
-      data: user,
-    });
+    try {
+      const user = await db.Users.findByPk(id);
+
+      if (!user) {
+        res.json({
+          message: "User not found",
+        });
+      }
+
+      res.json({
+        message: "Berhasil mendapatkan user by id",
+        data: user,
+      });
+
+    } catch {
+      res.json({
+        message: "Cannot find user",
+        error: error.message,
+      });
+    }
   },
 };

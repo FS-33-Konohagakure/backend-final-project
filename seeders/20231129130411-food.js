@@ -125,7 +125,7 @@ module.exports = {
       },
       {
         name: "Ubi",
-        image: "https://i.ibb.co/hmxNYfn/ubi-2.jpg",
+        image: "image 18",
         detail:
           "Umbi-umbian yang kaya akan nutrisi membuat makanan satu ini disebut sebagai superfood, karena selain kandungan nutrisinya, ubi juga membantu Anda untuk membakar lemak. Ubi memiliki kandungan serat fiber dan memiliki indeks glikemik yang rendah sehingga sistem pencernaan akan menyerap lebih lama serta membuat Anda merasa kenyang dalam waktu yang lebih panjang. Anda dapat mengolah ubi dengan direbus, dikukus, maupun diiris tipis-tipis untuk membuat keripik ubi yang dipanggang maupun menggunakan air fryer sehingga kandungan nutrisi tetap terjaga.",
         kategoriId: 3,
@@ -182,7 +182,7 @@ module.exports = {
       },
       {
         name: "Salad Pasta",
-        image: "https://i.ibb.co/SmXBrdg/salad-pasta.png",
+        image: "image 26",
         detail:
           "Serupa dengan salad sayuran biasa, hanya saja ditambahkan dengan pasta sebagai sumber karbohidrat utama.Untuk pilihan yang lebih sehat, gunakan pasta gandum yang lebih tinggi kandungan seratnya tapi lebih rendah kalori bila dibandingkan dengan pasta biasa.",
         kategoriId: 4,
@@ -204,7 +204,7 @@ module.exports = {
       
       {
         name: "Telur",
-        image: "https://i.ibb.co/HDDptpv/telur.jpg",
+        image: "image 29s",
         detail:
           "Telur adalah sumber protein yang bagus dan tidak mengandung banyak kalori.Sebagai camilan larut malam, telur adalah pilihan yang tepat.Mereka mudah dimasak dan dapat dipadukan dengan berbagai jenis makanan ringan.Telur juga mengandung triptofan, yang seperti yang pasti sudah diketahui dapat meningkatkan kualitas tidur seseorang.",
         kategoriId: 5,

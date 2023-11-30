@@ -97,7 +97,8 @@ module.exports = {
     const { id } = req.params;
     const {
       name,
-      image,
+      image_normal,
+      image_crop,
       spesialisasi,
       pengalaman,
       str,
@@ -105,15 +106,16 @@ module.exports = {
       biaya,
       alumnus,
       info,
-      hari,
-      jam,
+      jadwal_hari,
+      jadwal_jam,
       kategoriId,
     } = req.body;
     const index = await db.Dokter.findByPk(id);
     db.Dokter[index] = {
       id,
       name,
-      image,
+      image_normal,
+      image_crop,
       spesialisasi,
       pengalaman,
       str,
@@ -121,14 +123,15 @@ module.exports = {
       biaya,
       alumnus,
       info,
-      hari,
-      jam,
+      jadwal_hari,
+      jadwal_jam,
       kategoriId,
     };
 
     index.id = id || index.id;
     index.name = name || index.name;
-    index.image = image || index.image;
+    index.image_normal = image_normal || index.image_normal;
+    index.image_crop = image_crop || index.image_crop;
     index.spesialisasi = spesialisasi || index.spesialisasi;
     index.pengalaman = pengalaman || index.pengalaman;
     index.str = str || index.str;
@@ -136,8 +139,8 @@ module.exports = {
     index.biaya = biaya || index.biaya;
     index.alumnus = alumnus || index.alumnus;
     index.info = info || index.info;
-    index.hari = hari || index.hari;
-    index.jam = jam || index.jam;
+    index.jadwal_hari = jadwal_hari || index.jadwal_hari;
+    index.jadwal_jam = jadwal_jam || index.jadwal_jam;
     index.kategoriId = kategoriId || index.kategoriId;
 
     await index.save();

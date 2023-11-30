@@ -12,7 +12,10 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      image: {
+      image_normal: {
+        type: Sequelize.STRING
+      },
+      image_crop: {
         type: Sequelize.STRING
       },
       spesialisasi: {
@@ -36,7 +39,10 @@ module.exports = {
       info: {
         type: Sequelize.STRING
       },
-      jadwal: {
+      jadwal_hari: {
+        type: Sequelize.STRING
+      },
+      jadwal_jam: {
         type: Sequelize.STRING
       },
       kategoriId: {

@@ -8,13 +8,13 @@ module.exports = {
         username: "alfaz admin",
         email: "alfazadmin@gmail.com",
         password: "1234",
-        role: "Admin"
+        role: "admin"
       },
       {
         username: "alfaz user",
-        email: "alfazadmin@gmail.com",
+        email: "alfazuser@gmail.com",
         password: "1234",
-        role: "Admin"
+        role: "user"
       },
       {
         username: "irvi admin",
@@ -26,7 +26,7 @@ module.exports = {
         username: "irvi user",
         email: "irviuser@gmail.com",
         password: "5678",
-        role: "User"
+        role: "user"
       },
     ]);
   },

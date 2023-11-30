@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Dokters.init({
     name: DataTypes.STRING,
-    image: DataTypes.STRING,
+    image_normal: DataTypes.STRING,
+    image_crop: DataTypes.STRING,
     spesialisasi: DataTypes.STRING,
     pengalaman: DataTypes.INTEGER,
     str: DataTypes.INTEGER,
@@ -18,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     biaya: DataTypes.INTEGER,
     alumnus: DataTypes.STRING,
     info: DataTypes.STRING,
-    jadwal: DataTypes.STRING,
+    jadwal_hari: DataTypes.STRING,
+    jadwal_jam: DataTypes.STRING,
     kategoriId: DataTypes.INTEGER
   }, {
     sequelize,

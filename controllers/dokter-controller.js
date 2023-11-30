@@ -1,4 +1,4 @@
-const Dokters = require("../models/Dokters");
+const Dokter = require("../models/Dokters");
 const db = require("../models");
 
 module.exports = {
@@ -16,6 +16,7 @@ module.exports = {
         message: "Berhasil mendapatkan data dokter",
         data: dokters,
       });
+
     } catch {
       res.json({
         message: "Cannot find dokter",
@@ -40,6 +41,7 @@ module.exports = {
         message: "Berhasil mendapatkan dokter by id",
         data: dokter,
       });
+
     } catch {
       res.json({
         message: "cannot find dokter",
@@ -52,7 +54,7 @@ module.exports = {
 
     try {
       const newDokter = {
-        id: db.Dokters[Dokters.length - 1].id + 1,
+        id: db.Dokters[Dokter.length - 1].id + 1,
         name: data.name,
         image_normal: data.image_normal,
         image_crop: data.image_crop,
@@ -72,8 +74,9 @@ module.exports = {
 
       res.status(201).json({
         message: "berhasil menambahkan dokter baru",
-        data: Dokters,
+        data: Dokter,
       });
+
     } catch (error) {
       res.json({
         message: "gagal menambahkan dokter baru",
@@ -98,6 +101,7 @@ module.exports = {
       jadwal_jam,
       kategoriId,
     } = req.body;
+
     const index = await db.Dokters.findByPk(id);
     db.Dokters[index] = {
       id,
@@ -133,9 +137,10 @@ module.exports = {
 
     await index.save();
 
+    const dokter = await db.Dokters.findByPk(id);
     res.json({
       message: "Berhasil mengubah data dokter",
-      data: Dokters,
+      data: dokter,
     });
   },
 

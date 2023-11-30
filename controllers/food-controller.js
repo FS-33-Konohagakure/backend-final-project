@@ -86,10 +86,10 @@ module.exports = {
     index.kategoriId = kategoriId || index.kategoriId;
 
     await index.save();
-
+    const food = await db.Foods.findByPk(id);
     res.json({
       message: "Berhasil mengubah data food",
-      data: Foods,
+      data: food,
     });
   },
   deleteFoodById: async (req, res) => {

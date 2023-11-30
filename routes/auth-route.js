@@ -4,13 +4,13 @@ const jwt = require("jsonwebtoken");
 
 const route = express.Router();
 
-const checkRole = require('./roleMiddleware');
+const checkRole = require('../middleware/role');
 const User = require("../models/Users");
 const db = require("../models/index");
 
 
-const adminFeatures = [ 'getAllDokter', 'getDokterById', 'getDokterByKategoriId',];
-const userFeatures = [ 'addDokter', 'editDokterById', 'deleteDokterById'];
+const adminFeatures = ['addDokter', 'editDokterById', 'deleteDokterById' ];
+const userFeatures = [ 'getAllDokter', 'getDokterById'];
 
 
 route.post("/login", async (req, res) => {

@@ -1,4 +1,4 @@
-const Dokter = require("../models/Dokters");
+const Dokters = require("../models/Dokters");
 const db = require("../models");
 
 module.exports = {
@@ -47,44 +47,32 @@ module.exports = {
       });
     }
   },
-
-  getDokterByKategoriId: async (req, res) => {
-    const { kategoriId } = req.params;
-    try {
-      const kategoriDokters = await db.dokters.filter(
-        (dokter) => dokter.kategoriId === kategoriId
-      );
-
-      if (!kategoriDokters) {
-        res.json({
-          message: "Kategori dokter not found",
-        });
-      }
-      res.json({
-        message: "Berhasil mendapatkan dokter by kategori",
-        data: kategoriDokters,
-      });
-    } catch {
-      res.json({
-        message: "Cannot find Dokter kategori",
-        error: error.message,
-      });
-    }
-  },
   addDokter: async (req, res) => {
     let data = req.body;
 
     try {
       const newDokter = {
-        id: db.Dokter[Dokter.length - 1].id + 1,
-        value: data.value,
+        id: db.Dokters[Dokters.length - 1].id + 1,
+        name: data.name,
+        image_normal: data.image_normal,
+        image_crop: data.image_crop,
+        spesialisasi: data.spesialisasi,
+        pengalaman: data.pengalaman,
+        str: data.str,
+        hospital: data.hospital,
+        biaya: data.biaya,
+        alumnus: data.alumnus,
+        info: data.info,
+        jadwal_hari: data.jadwal_hari,
+        jadwal_jam: data.jadwal_jam,
+        kategoriId: data.kategoriId
       };
 
-      await db.Dokter.push(newDokter);
+      await db.Dokters.push(newDokter);
 
       res.status(201).json({
         message: "berhasil menambahkan dokter baru",
-        data: Dokter,
+        data: Dokters,
       });
     } catch (error) {
       res.json({
@@ -110,8 +98,8 @@ module.exports = {
       jadwal_jam,
       kategoriId,
     } = req.body;
-    const index = await db.Dokter.findByPk(id);
-    db.Dokter[index] = {
+    const index = await db.Dokters.findByPk(id);
+    db.Dokters[index] = {
       id,
       name,
       image_normal,
@@ -147,7 +135,7 @@ module.exports = {
 
     res.json({
       message: "Berhasil mengubah data dokter",
-      data: Dokter,
+      data: Dokters,
     });
   },
 
@@ -155,7 +143,7 @@ module.exports = {
     const { id } = req.params;
 
     try {
-      const dokter = await db.Dokter.findByPk(id);
+      const dokter = await db.Dokters.findByPk(id);
 
       if (!dokter) {
         res.json({
@@ -165,7 +153,7 @@ module.exports = {
 
       await dokter.destroy();
 
-      const dokters = await db.Dokter.findAll();
+      const dokters = await db.Dokters.findAll();
 
       res.json({
         message: "Berhasil menghapus dokter by id",

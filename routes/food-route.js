@@ -4,7 +4,6 @@ const route = express.Router();
 const {
   getAllFood,
   getFoodById,
-  getFoodByKategoriId,
   addFood,
   editFoodById,
   deleteFoodById,
@@ -12,7 +11,6 @@ const {
 
 route.get("/", getAllFood);
 route.get("/:id", getFoodById);
-route.get("/kategori_id", getFoodByKategoriId);
 route.post("/", addFood);
 route.put("/:id", editFoodById);
 route.delete("/:id", deleteFoodById);

@@ -1,4 +1,4 @@
-const User = require("../models/Users");
+const Users = require("../models/Users");
 const db = require("../models");
 
 
@@ -54,8 +54,8 @@ module.exports = {
     const { id } = req.params;
     const { username, email, password, role } = req.body;
 
-    const index = await db.Todo.findByPk(id);
-    db.Todo[index] = { id, username, email, password, role };
+    const index = await db.Users.findByPk(id);
+    db.Users[index] = { id, username, email, password, role };
 
     index.id = id || index.id;
     index.username = username || index.username;
@@ -67,14 +67,14 @@ module.exports = {
 
     res.json({
       message: "berhasil mengubah data user",
-      data: User,
+      data: Users,
     });
   },
   deleteUserById: async (req, res) => {
     const { id } = req.params;
 
     try {
-      const user = await db.User.findByPk(id);
+      const user = await db.Users.findByPk(id);
 
       if (!user) {
         res.json({
@@ -84,7 +84,7 @@ module.exports = {
 
       await User.destroy();
 
-      const users = await db.User.findAll();
+      const users = await db.Users.findAll();
 
       res.json({
         message: "Berhasil menghapus user by id",

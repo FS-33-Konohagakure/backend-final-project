@@ -1,4 +1,4 @@
-const Food = require("../models/Foods");
+const Foods = require("../models/Foods");
 const db = require("../models");
 
 module.exports = {
@@ -42,42 +42,23 @@ module.exports = {
       });
     }
   },
-  getFoodByKategoriId: async (req, res) => {
-    const { kategoriId } = req.params;
-    try {
-      const kategoriFoods = await db.foods.filter(
-        (food) => food.kategoriId === kategoriId
-      );
-
-      if (!kategoriFoods) {
-        res.json({
-          message: "Kategori food not found",
-        });
-      }
-      res.json({
-        message: "Berhasil mendapatkan food by kategori",
-        data: kategoriFoods,
-      });
-    } catch {
-      res.json({
-        message: "Cannot find Food kategori",
-      });
-    }
-  },
   addFood: async (req, res) => {
     let data = req.body;
 
     try {
       const newFood = {
-        id: db.Food[Food.length - 1].id + 1,
-        value: data.value,
+        id: db.Foods[Foods.length - 1].id + 1,
+        name: data.name,
+        image: data.image,
+        detail: data.detail,
+        kategoriId: data.kategoriId
       };
 
-      await db.Food.push(newFood);
+      await db.Foods.push(newFood);
 
       res.status(201).json({
         message: "berhasil menambahkan food baru",
-        data: Food,
+        data: Foods,
       });
     } catch (error) {
       res.json({
@@ -89,10 +70,10 @@ module.exports = {
   editFoodById: async (req, res) => {
     const { id } = req.params;
     const { name, image, detail, kategoriId } = req.body;
-    const index = await db.Food.findByPk(id);
-    db.Food[index] = {
+    const index = await db.Foods.findByPk(id);
+    db.Foods[index] = {
       id,
-      nama,
+      name,
       image,
       detail,
       kategoriId,
@@ -108,14 +89,14 @@ module.exports = {
 
     res.json({
       message: "Berhasil mengubah data food",
-      data: Food,
+      data: Foods,
     });
   },
   deleteFoodById: async (req, res) => {
     const { id } = req.params;
 
     try {
-      const food = await db.Food.findByPk(id);
+      const food = await db.Foods.findByPk(id);
 
       if (!food) {
         res.json({
@@ -125,7 +106,7 @@ module.exports = {
 
       await food.destroy();
 
-      const foods = await db.Food.findAll();
+      const foods = await db.Foods.findAll();
 
       res.json({
         message: "Berhasil menghapus food by id",

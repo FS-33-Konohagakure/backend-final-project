@@ -14,6 +14,6 @@ route.get("/", (req, res) => {
 route.use("/users", userRoutes);
 route.use("/auth", authRoutes);
 route.use("/dokter", verifyToken, dokterRoutes);
-route.use("/food", foodRoutes);
+route.use("/food", verifyToken, foodRoutes);
 
 module.exports = route;

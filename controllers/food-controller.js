@@ -1,4 +1,3 @@
-const Foods = require("../models/Foods");
 const db = require("../models");
 
 module.exports = {
@@ -46,20 +45,22 @@ module.exports = {
     let data = req.body;
 
     try {
+      const foods = await db.Foods.findAll();
       const newFood = {
-        id: db.Foods[Foods.length - 1].id + 1,
+        id: foods[foods.length - 1].id + 1,
         name: data.name,
         image: data.image,
         detail: data.detail,
         kategoriId: data.kategoriId
       };
 
-      await db.Foods.push(newFood);
+      await db.Foods.create(newFood);
 
       res.status(201).json({
         message: "berhasil menambahkan food baru",
-        data: Foods,
+        data: newFood,
       });
+
     } catch (error) {
       res.json({
         message: "gagal menambahkan food baru",
@@ -112,6 +113,7 @@ module.exports = {
         message: "Berhasil menghapus food by id",
         data: foods,
       });
+
     } catch {
       res.json({
         message: "Cannot delete food",

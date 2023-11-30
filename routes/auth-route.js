@@ -39,11 +39,11 @@ route.post("/login", async (req, res) => {
   });
 });
 
-route.get('/admin/dokter', checkRole('admin'), (req, res) => {
+route.get('/admin', checkRole('admin'), (req, res) => {
   res.json({ features: adminFeatures });
 });
 
-route.get('/user/dokter', checkRole('user'), (req, res) => {
+route.get('/user', checkRole('user'), (req, res) => {
   res.json({ features: userFeatures });
 });
 

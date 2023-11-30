@@ -1,4 +1,3 @@
-const Dokter = require("../models/Dokters");
 const db = require("../models");
 
 module.exports = {
@@ -53,8 +52,9 @@ module.exports = {
     let data = req.body;
 
     try {
+      const dokters = await db.Dokters.findAll();
       const newDokter = {
-        id: db.Dokters[Dokter.length - 1].id + 1,
+        id: dokters[dokters.length - 1].id + 1,
         name: data.name,
         image_normal: data.image_normal,
         image_crop: data.image_crop,
@@ -70,11 +70,11 @@ module.exports = {
         kategoriId: data.kategoriId
       };
 
-      await db.Dokters.push(newDokter);
+      await db.Dokters.create(newDokter);
 
       res.status(201).json({
         message: "berhasil menambahkan dokter baru",
-        data: Dokter,
+        data: newDokter,
       });
 
     } catch (error) {

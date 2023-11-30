@@ -13,7 +13,7 @@ route.get("/", (req, res) => {
   
 route.use("/users", verifyToken, userRoutes);
 route.use("/auth", authRoutes);
-route.use("/dokter", verifyToken, dokterRoutes);
-route.use("/food", verifyToken, foodRoutes);
+route.use("/dokters", verifyToken, dokterRoutes);
+route.use("/foods", verifyToken, foodRoutes);
 
 module.exports = route;

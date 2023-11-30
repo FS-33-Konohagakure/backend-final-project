@@ -64,10 +64,11 @@ module.exports = {
     index.role = role || index.role;
 
     await index.save();
+    const user = await db.Users.findByPk(id);
 
     res.json({
       message: "berhasil mengubah data user",
-      data: Users,
+      data: user,
     });
   },
   deleteUserById: async (req, res) => {
@@ -82,7 +83,7 @@ module.exports = {
         });
       }
 
-      await User.destroy();
+      await user.destroy();
 
       const users = await db.Users.findAll();
 
@@ -90,6 +91,7 @@ module.exports = {
         message: "Berhasil menghapus user by id",
         data: users,
       });
+      
     } catch {
       res.json({
         message: "Cannot delete user",

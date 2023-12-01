@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const Key = "ghfffygdf";
 
 const verifyToken = (req, res, next) => {
-  const header = req.headers.authorization;
+  const header = req.header.authorization;
 
   if (!header) {
     res.json({

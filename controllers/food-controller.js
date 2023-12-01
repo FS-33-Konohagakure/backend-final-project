@@ -1,4 +1,5 @@
-const {checkRole} = require("../middleware/checkrole");
+const { jwtDecode } = require("jwt-decode");
+const { checkRole } = require("../middleware/checkrole");
 const db = require("../models");
 
 module.exports = {
@@ -43,31 +44,49 @@ module.exports = {
     }
   },
   addFood: async (req, res) => {
+    // checkrole
+
+    const token = req.header.authorization;
+    const decoded = jwtDecode(token);
+    console.log(decoded);
+
+    if (!token) {
+      return res.status(401).json({ error: 'Unauthorized.' });
+    }
+
     let data = req.body;
-    
-      try {
-        const foods = await db.Foods.findAll();
-        const newFood = {
-          id: foods[foods.length - 1].id + 1,
-          name: data.name,
-          image: data.image,
-          detail: data.detail,
-          kategoriId: data.kategoriId,
-        };
 
-        await db.Foods.create(newFood);
-
-        res.status(201).json({
-          message: "berhasil menambahkan food baru",
-          data: newFood,
-        });
-
-      } catch (error) {
-        res.json({
-          message: "gagal menambahkan food baru",
-          error: error.message,
-        });
+    try {
+      const decodedHeader = jwtDecode(token, { header: true });
+      console.log(decodedHeader);
+      console.log(req.header);
+  
+      if (decodedHeader.role !== 'admin') {
+        return res.status(403).json({ error: 'Access denied. Insufficient permissions.' });
       }
+
+      const foods = await db.Foods.findAll();
+      const newFood = {
+        id: foods[foods.length - 1].id + 1,
+        name: data.name,
+        image: data.image,
+        detail: data.detail,
+        kategoriId: data.kategoriId,
+      };
+
+      await db.Foods.create(newFood);
+
+      res.status(201).json({
+        message: "berhasil menambahkan food baru",
+        data: newFood,
+      });
+
+    } catch (error) {
+      res.json({
+        message: "gagal menambahkan food baru",
+        error: error.message,
+      });
+    }
   },
 
   editFoodById: async (req, res) => {

@@ -4,13 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const route = express.Router();
 
-const checkRole = require('../middleware/role');
-const User = require("../models/Users");
 const db = require("../models/index");
-
-
-const adminFeatures = ['addDokter', 'editDokterById', 'deleteDokterById' ];
-const userFeatures = [ 'getAllDokter', 'getDokterById'];
 
 
 route.post("/login", async (req, res) => {
@@ -26,7 +20,7 @@ route.post("/login", async (req, res) => {
   }
 
   if (bcrypt.compareSync(data.password, user.password)) {
-    const token = jwt.sign({ email: data.email, role: user.role}, "ghfffygdf");
+    const token = jwt.sign({ email: data.email}, "ghfffygdf");
     res.json({
       message: "SUCCESSFULLY LOGIN",
       token,
@@ -37,14 +31,6 @@ route.post("/login", async (req, res) => {
   res.json({
     message: "Incorrect Password",
   });
-});
-
-route.get('/admin', checkRole('admin'), (req, res) => {
-  res.json({ features: adminFeatures });
-});
-
-route.get('/user', checkRole('user'), (req, res) => {
-  res.json({ features: userFeatures });
 });
 
 route.post("/regis", async (req, res) => {

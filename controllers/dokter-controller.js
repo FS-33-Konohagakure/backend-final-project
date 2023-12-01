@@ -1,7 +1,7 @@
 const db = require("../models");
 
 module.exports = {
-  getAllDokter: async (req, res) => {
+  getAllDokter:async (req, res) => {
     try {
       const dokters = await db.Dokters.findAll();
 

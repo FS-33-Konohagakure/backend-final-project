@@ -1,7 +1,10 @@
+const checkRole = require("../middleware/role");
 const db = require("../models");
 
 module.exports = {
   getAllFood: async (req, res) => {
+    checkRole('user')
+
     try {
       const foods = await db.Foods.findAll();
 
@@ -42,6 +45,8 @@ module.exports = {
     }
   },
   addFood: async (req, res) => {
+    checkRole('admin')
+
     let data = req.body;
 
     try {

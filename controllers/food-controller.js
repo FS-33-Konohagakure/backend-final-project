@@ -1,5 +1,4 @@
 const { jwtDecode } = require("jwt-decode");
-const { checkRole } = require("../middleware/checkrole");
 const db = require("../models");
 
 module.exports = {
@@ -45,25 +44,23 @@ module.exports = {
   },
   addFood: async (req, res) => {
     // checkrole
-
-    const token = req.headers.authorization;
-    const decoded = jwtDecode(token);
-    console.log(decoded);
-
-    if (!token) {
-      return res.status(401).json({ error: 'Unauthorized.' });
-    }
-
     let data = req.body;
-
     try {
-      const decodedHeader = jwtDecode(token, { header: true });
-      console.log(decodedHeader);
-  
-      if (decodedHeader.role !== 'admin') {
-        return res.status(403).json({ error: 'Access denied. Insufficient permissions.' });
+      const token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({ error: "Unauthorized." });
       }
 
+      const decoded = jwtDecode(token);
+      console.log(decoded);
+
+      if (decoded.role !== "admin") {
+        return res
+          .status(403)
+          .json({ error: "Access denied. Insufficient permissions." });
+      }
+
+      // addFood
       const foods = await db.Foods.findAll();
       const newFood = {
         id: foods[foods.length - 1].id + 1,
@@ -79,7 +76,6 @@ module.exports = {
         message: "berhasil menambahkan food baru",
         data: newFood,
       });
-
     } catch (error) {
       res.json({
         message: "gagal menambahkan food baru",
@@ -89,7 +85,23 @@ module.exports = {
   },
 
   editFoodById: async (req, res) => {
-    checkRole("admin")(req, res, async () => {
+    // checkrole
+    try {
+      const token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({ error: "Unauthorized." });
+      }
+
+      const decoded = jwtDecode(token);
+      console.log(decoded);
+
+      if (decoded.role !== "admin") {
+        return res
+          .status(403)
+          .json({ error: "Access denied. Insufficient permissions." });
+      }
+
+      // editFoodById
       const { id } = req.params;
       const { name, image, detail, kategoriId } = req.body;
       const index = await db.Foods.findByPk(id);
@@ -113,35 +125,54 @@ module.exports = {
         message: "Berhasil mengubah data food",
         data: food,
       });
-    });
+    } catch {
+      res.json({
+        message: "Gagal mengubah data food",
+        error: error.message,
+      });
+    }
   },
   deleteFoodById: async (req, res) => {
-    checkRole("admin")(req, res, async () => {
-      const { id } = req.params;
+    const { id } = req.params;
 
-      try {
-        const food = await db.Foods.findByPk(id);
+    try {
+      // checkrole
+      const token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({ error: "Unauthorized." });
+      }
 
-        if (!food) {
-          res.json({
-            message: "Food not found.",
-          });
-        }
+      const decoded = jwtDecode(token);
+      console.log(decoded);
 
-        await food.destroy();
+      if (decoded.role !== "admin") {
+        return res
+          .status(403)
+          .json({ error: "Access denied. Insufficient permissions." });
+      }
 
-        const foods = await db.Foods.findAll();
+      // deleteFoodById
+      const food = await db.Foods.findByPk(id);
 
+      if (!food) {
         res.json({
-          message: "Berhasil menghapus food by id",
-          data: foods,
-        });
-      } catch {
-        res.json({
-          message: "Cannot delete food",
-          error: error.message,
+          message: "Food not found.",
         });
       }
-    });
+
+      await food.destroy();
+
+      const foods = await db.Foods.findAll();
+
+      res.json({
+        message: "Berhasil menghapus food by id",
+        data: foods,
+      });
+    } catch {
+      res.json({
+        message: "Cannot delete food",
+        error: error.message,
+      });
+    }
   },
 };

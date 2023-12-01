@@ -4,7 +4,6 @@ const Key = "ghfffygdf";
 
 const verifyToken = (req, res, next) => {
   const header = req.headers.authorization;
-  console.log (req.header);
 
   if (!header) {
     res.json({

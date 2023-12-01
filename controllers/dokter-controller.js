@@ -1,4 +1,3 @@
-const {checkRole} = require("../middleware/checkrole");
 const db = require("../models");
 
 module.exports = {
@@ -48,10 +47,26 @@ module.exports = {
     }
   },
   addDokter: async (req, res) => {
-    checkRole("admin")(req, res, async () => {
       let data = req.body;
 
-      try {
+    try {
+      //checkrole
+      const token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({ error: "Unauthorized." });
+      }
+      
+      const decoded = jwtDecode(token);
+      console.log(decoded);
+  
+  
+      if (decoded.role !== "admin") {
+        return res
+          .status(403)
+          .json({ error: "Access denied. Insufficient permissions." });
+      }
+
+      // addDokter
         const dokters = await db.Dokters.findAll();
         const newDokter = {
           id: dokters[dokters.length - 1].id + 1,
@@ -82,10 +97,27 @@ module.exports = {
           error: error.message,
         });
       }
-    });
+    
   },
   editDokterById: async (req, res) => {
-    checkRole("admin")(req, res, async () => {
+    // checkrole
+    try {
+      const token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({ error: "Unauthorized." });
+      }
+    
+      const decoded = jwtDecode(token);
+      console.log(decoded);
+
+
+      if (decoded.role !== "admin") {
+        return res
+          .status(403)
+          .json({ error: "Access denied. Insufficient permissions." });
+      }
+
+      //editDokterById
       const { id } = req.params;
       const {
         name,
@@ -143,14 +175,35 @@ module.exports = {
         message: "Berhasil mengubah data dokter",
         data: dokter,
       });
-    });
+    } catch {
+      res.json({
+        message: "Gagal mengubah data dokter",
+        error: error.message,
+      });
+    }
   },
 
   deleteDokterById: async (req, res) => {
-    checkRole("admin")(req, res, async () => {
       const { id } = req.params;
 
-      try {
+    try {
+      //checkrole
+      const token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({ error: "Unauthorized." });
+      }
+      
+      const decoded = jwtDecode(token);
+      console.log(decoded);
+  
+  
+      if (decoded.role !== "admin") {
+        return res
+          .status(403)
+          .json({ error: "Access denied. Insufficient permissions." });
+      }
+
+      //deleteDokterById
         const dokter = await db.Dokters.findByPk(id);
 
         if (!dokter) {
@@ -173,6 +226,5 @@ module.exports = {
           error: error.message,
         });
       }
-    });
   },
 };

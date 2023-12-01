@@ -43,9 +43,8 @@ module.exports = {
     }
   },
   addFood: async (req, res) => {
-    checkRole("admin")(req, res, async () => {
-      let data = req.body;
-
+    let data = req.body;
+    
       try {
         const foods = await db.Foods.findAll();
         const newFood = {
@@ -62,13 +61,13 @@ module.exports = {
           message: "berhasil menambahkan food baru",
           data: newFood,
         });
+
       } catch (error) {
         res.json({
           message: "gagal menambahkan food baru",
           error: error.message,
         });
       }
-    });
   },
 
   editFoodById: async (req, res) => {

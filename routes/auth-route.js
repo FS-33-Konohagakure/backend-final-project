@@ -10,17 +10,17 @@ const db = require("../models/index");
 route.post("/login", async (req, res) => {
   let data = req.body;
 
-  const user = await db.Users.findOne({ where: { email: data.email } });
+  const user = await db.Users.findOne({ where: { email: data.email, role: data.role } });
 
   if (!user) {
     res.json({
-      message: "Incorrect Email!",
+      message: "Incorrect Email dan Role!",
     });
     return;
   }
 
   if (bcrypt.compareSync(data.password, user.password)) {
-    const token = jwt.sign({ email: data.email}, "ghfffygdf");
+    const token = jwt.sign({ email: data.email, role: data.role}, "ghfffygdf");
     res.json({
       message: "SUCCESSFULLY LOGIN",
       token,

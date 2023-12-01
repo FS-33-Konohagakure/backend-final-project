@@ -3,8 +3,6 @@ const db = require("../models");
 
 module.exports = {
   getAllFood: async (req, res) => {
-    checkRole('user')
-
     try {
       const foods = await db.Foods.findAll();
 
@@ -45,85 +43,88 @@ module.exports = {
     }
   },
   addFood: async (req, res) => {
-    checkRole('admin')
+    checkRole("admin")(req, res, async () => {
+      let data = req.body;
 
-    let data = req.body;
+      try {
+        const foods = await db.Foods.findAll();
+        const newFood = {
+          id: foods[foods.length - 1].id + 1,
+          name: data.name,
+          image: data.image,
+          detail: data.detail,
+          kategoriId: data.kategoriId,
+        };
 
-    try {
-      const foods = await db.Foods.findAll();
-      const newFood = {
-        id: foods[foods.length - 1].id + 1,
-        name: data.name,
-        image: data.image,
-        detail: data.detail,
-        kategoriId: data.kategoriId
+        await db.Foods.create(newFood);
+
+        res.status(201).json({
+          message: "berhasil menambahkan food baru",
+          data: newFood,
+        });
+      } catch (error) {
+        res.json({
+          message: "gagal menambahkan food baru",
+          error: error.message,
+        });
+      }
+    });
+  },
+
+  editFoodById: async (req, res) => {
+    checkRole("admin")(req, res, async () => {
+      const { id } = req.params;
+      const { name, image, detail, kategoriId } = req.body;
+      const index = await db.Foods.findByPk(id);
+      db.Foods[index] = {
+        id,
+        name,
+        image,
+        detail,
+        kategoriId,
       };
 
-      await db.Foods.create(newFood);
+      index.id = id || index.id;
+      index.name = name || index.name;
+      index.image = image || index.image;
+      index.detail = detail || index.detail;
+      index.kategoriId = kategoriId || index.kategoriId;
 
-      res.status(201).json({
-        message: "berhasil menambahkan food baru",
-        data: newFood,
-      });
-
-    } catch (error) {
+      await index.save();
+      const food = await db.Foods.findByPk(id);
       res.json({
-        message: "gagal menambahkan food baru",
-        error: error.message,
+        message: "Berhasil mengubah data food",
+        data: food,
       });
-    }
-  },
-  editFoodById: async (req, res) => {
-    const { id } = req.params;
-    const { name, image, detail, kategoriId } = req.body;
-    const index = await db.Foods.findByPk(id);
-    db.Foods[index] = {
-      id,
-      name,
-      image,
-      detail,
-      kategoriId,
-    };
-
-    index.id = id || index.id;
-    index.name = name || index.name;
-    index.image = image || index.image;
-    index.detail = detail || index.detail;
-    index.kategoriId = kategoriId || index.kategoriId;
-
-    await index.save();
-    const food = await db.Foods.findByPk(id);
-    res.json({
-      message: "Berhasil mengubah data food",
-      data: food,
     });
   },
   deleteFoodById: async (req, res) => {
-    const { id } = req.params;
+    checkRole("admin")(req, res, async () => {
+      const { id } = req.params;
 
-    try {
-      const food = await db.Foods.findByPk(id);
+      try {
+        const food = await db.Foods.findByPk(id);
 
-      if (!food) {
+        if (!food) {
+          res.json({
+            message: "Food not found.",
+          });
+        }
+
+        await food.destroy();
+
+        const foods = await db.Foods.findAll();
+
         res.json({
-          message: "Food not found.",
+          message: "Berhasil menghapus food by id",
+          data: foods,
+        });
+      } catch {
+        res.json({
+          message: "Cannot delete food",
+          error: error.message,
         });
       }
-
-      await food.destroy();
-
-      const foods = await db.Foods.findAll();
-
-      res.json({
-        message: "Berhasil menghapus food by id",
-        data: foods,
-      });
-
-    } catch {
-      res.json({
-        message: "Cannot delete food",
-        error: error.message,
-      });
-    }
+    });
   },
 };

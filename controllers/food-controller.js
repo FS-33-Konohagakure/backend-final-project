@@ -1,4 +1,4 @@
-const checkRole = require("../middleware/role");
+const {checkRole} = require("../middleware/checkrole");
 const db = require("../models");
 
 module.exports = {

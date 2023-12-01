@@ -46,7 +46,7 @@ module.exports = {
   addFood: async (req, res) => {
     // checkrole
 
-    const token = req.header.authorization;
+    const token = req.headers.authorization;
     const decoded = jwtDecode(token);
     console.log(decoded);
 
@@ -59,7 +59,6 @@ module.exports = {
     try {
       const decodedHeader = jwtDecode(token, { header: true });
       console.log(decodedHeader);
-      console.log(req.header);
   
       if (decodedHeader.role !== 'admin') {
         return res.status(403).json({ error: 'Access denied. Insufficient permissions.' });

@@ -1,3 +1,4 @@
+const { jwtDecode } = require("jwt-decode");
 const db = require("../models");
 
 module.exports = {
@@ -58,8 +59,7 @@ module.exports = {
       
       const decoded = jwtDecode(token);
       console.log(decoded);
-  
-  
+
       if (decoded.role !== "admin") {
         return res
           .status(403)

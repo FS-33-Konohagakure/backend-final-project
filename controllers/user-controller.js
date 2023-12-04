@@ -50,26 +50,36 @@ module.exports = {
       });
     }
   },
+
   editUserById: async (req, res) => {
-    const { id } = req.params;
-    const { username, email, password, role } = req.body;
+        // checkrole
+    try {
+      const { id } = req.params;
+      const { username, email, password, role } = req.body;
 
-    const index = await db.Users.findByPk(id);
-    db.Users[index] = { id, username, email, password, role };
+      const index = await db.Users.findByPk(id);
+      db.Users[index] = { id, username, email, password, role };
 
-    index.id = id || index.id;
-    index.username = username || index.username;
-    index.email = email || index.email;
-    index.password = password || index.password;
-    index.role = role || index.role;
+      index.id = id || index.id;
+      index.username = username || index.username;
+      index.email = email || index.email;
+      index.password = password || index.password;
+      index.role = role || index.role;
 
-    await index.save();
-    const user = await db.Users.findByPk(id);
+      await index.save();
+      const user = await db.Users.findByPk(id);
 
-    res.json({
-      message: "berhasil mengubah data user",
-      data: user,
-    });
+      res.json({
+        message: "berhasil mengubah data user",
+        data: user,
+      });
+    
+    } catch {
+      res.json({
+        message: "Gagal mengubah data user",
+        error: error.message,
+      });
+    }
   },
   
   deleteUserById: async (req, res) => {

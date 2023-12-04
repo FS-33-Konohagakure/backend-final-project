@@ -1,6 +1,95 @@
 # backend-final-project
 Tugas Final Project Skilvul
 
+## **DOKUMENTASI API**
+1. Pertama koneksikan host database menggunakan data berikut:
+   ```markdown
+   username: "freedb_virani",
+   password: "6u#U@BfDZy&6Az*",
+   database: "freedb_kesehatan",
+   host: "sql.freedb.tech",
+   dialect: "mysql",
+   ```
+2. Kemudian setelah host database terhubung, default route akan menunjukkan pesan
+   "Selamat datang di aplikasi Konsultasi Dokter dan Informasi Kesehatan Bersama SEHATIN"
+3. Kemudian untuk Registrasi menggunakan alamat route `POST ("/auth.regis")` dengan mengisikan body sebagai berikut:
+   ```markdown
+   {
+   "username": "",
+   "email": "",
+   "password": "",
+   "role": "admin" / "user"
+   }
+   ```
+4. Setelah berhasil registrasi, kemudian dapat melakukan Login menggunakan data yang sudah tersimpan di dalam database dengan alamat route `POST ("/auth.login")`
+   ```markdown
+   {
+   "username": "",
+   "email": "",
+   "password": "",
+   "role": "admin" / "user"
+   }
+   ```
+5. Kemudian setelah berhasil melakukan login akan mendapatkan token. **Token** ini akan diberikan ke dalam **header**.
+6. Fitur-fitur yang ada dalam aplikasi ini
+   USER
+   - mendapatkan seluruh data user route `GET ("users/")`
+   - mendapatkan data user berdasarkan id route `GET ("users/:id")`
+   - menambahkan data user (dengan registrasi)
+   - mengedit data user berdasarkan id route `PUT ("users/:id")`
+   - menghapus data user berdasarkan id route `DELETE ("users/:id")`
+  
+   DOKTER
+   - mendapatkan seluruh data dokter route `GET ("dokters/")`
+   - mendapatkan data dokter berdasarkan id route `GET ("dokters/:id")`
+   - menambahkan data dokter route `POST ("dokters/")`
+   - mengedit data dokter berdasarkan id route `PUT ("dokters/:id")`
+   - menghapus data dokter berdasarkan id route `DELETE ("dokters/:id")`
+  
+   FOOD
+   - mendapatkan seluruh data food route `GET ("foods/")`
+   - mendapatkan data food berdasarkan id route `GET ("foods/:id")`
+   - menambahkan data food route `POST ("foods/")`
+   - mengedit data food berdasarkan id route `PUT ("foods/:id")`
+   - menghapus data food berdasarkan id route `DELETE ("foods/:id")`
+     
+8. Dalam aplikasi ini, ada 2 role ( admin dan user)
+   Untuk fitur-fitur dibawah ini, yang memiliki hak akses hanya **admin**, sehingga role 'user' tidak dapat menggunakan akses fitur-fitur ini.
+   DOKTERS
+   - menambahkan data dokter dengan route `GET ("dokters/")`
+   - mengedit data dokter route `PUT ("dokters/:id")`
+   - menghapus data dokter route DELETE `("dokters/:id")`
+     
+   FOODS
+   - menambahkan data food dengan route `GET ("foods/")`
+   - mengedit data food route `PUT ("foods/:id")`
+   - menghapus data food route `DELETE ("foods/:id")`
+     
+9. Untuk melakukan edit data atau menambahkan data **Dokter**, dapat menggunakan format berikut:
+    ```markdown
+    "name": "string",
+    "image_normal": "string",
+    "image_crop": "string",
+    "spesialisasi": "Dokter Anak" / "Dokter Kandungan" / "Dokter Gigi"
+    "pengalaman": integer,
+    "str": integer,
+    "hospital": "string",
+    "biaya": integer,
+    "alumnus": "string",
+    "info": "string",
+    "jadwal_hari": "hari - hari",
+    "jadwal_jam": "00:00 - 00:00",
+    "kategoriId": integer,
+    ```
+    
+12. Untuk melakukan edit data atau menambahkan data **Food**, dapat menggunakan format berikut:
+    ```markdown
+    "name": "string",
+    "image": "string",
+    "detail": "string",
+    "kategoriId": (integer),
+    ```
+    
 ## **Getting Started**
 Untuk memulai pembuatan backend, siapkan software berikut:
 1. Node.js

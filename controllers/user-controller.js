@@ -71,6 +71,7 @@ module.exports = {
       data: user,
     });
   },
+  
   deleteUserById: async (req, res) => {
     const { id } = req.params;
 

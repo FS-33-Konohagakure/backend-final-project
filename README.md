@@ -45,6 +45,7 @@ Tugas Final Project Skilvul
    DOKTER
    - mendapatkan seluruh data dokter, route `GET ("dokters/")`
    - mendapatkan data dokter berdasarkan id, route `GET ("dokters/:id")`
+   - mendapatkan data dokter berdasarkan kategoriId, route `GET ("/kategori/:kategoriId")`
    - menambahkan data dokter, route `POST ("dokters/")`
    - mengedit data dokter berdasarkan id, route `PUT ("dokters/:id")`
    - menghapus data dokter berdasarkan id, route `DELETE ("dokters/:id")`

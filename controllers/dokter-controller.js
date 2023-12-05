@@ -1,5 +1,7 @@
 const { jwtDecode } = require("jwt-decode");
 const db = require("../models");
+const { Op } = require("sequelize");
+
 
 module.exports = {
   getAllDokter: async (req, res) => {
@@ -43,6 +45,30 @@ module.exports = {
     } catch {
       res.json({
         message: "cannot find dokter",
+        error: error.message,
+      });
+    }
+  },
+  getDokterByKategoriId: async (req, res) => {
+    try {
+      const { kategoriId } = req.params;
+      
+      // Gantilah 'kategoriId' sesuai dengan nama kolom yang sesuai di model Anda
+      const dokters = await db.Dokters.findAll({
+        where: {
+          kategoriId: {
+            [Op.eq]: kategoriId ,
+          },
+        },
+      });
+  
+      return res.json({
+        message: "Berhasil mendapatkan dokter by kategori",
+        data: dokters
+      });
+    } catch{
+      res.json({
+        message: "cannot find dokter by kategori",
         error: error.message,
       });
     }

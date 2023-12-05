@@ -253,3 +253,4 @@ module.exports = {
     return queryInterface.bulkDelete("Foods", null, {});
   },
 };
+

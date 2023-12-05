@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 const rootRoutes = require("./routes");
 const db = require("./models");
 
-
 const PORT = process.env.PORT || 3000;
+app.use(cors({ credentials: true, origin: PORT }));
 
 async function testConnection() {
   try {
